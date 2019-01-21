@@ -23,7 +23,10 @@ library(flexdashboard)
 source("ZillowFormulas.R")
 library(DT)
 library(leaflet)
+library(crosstalk)
 options(scipen=999)
+#crosstalk shared data
+sd <- SharedData$new(data)
 ```
 
 Inputs {.sidebar}
@@ -32,7 +35,11 @@ Inputs {.sidebar}
 ### [Zillow Research](https://www.zillow.com/research/data/)
 
 ```{r}
-selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)), multiple=F, selectize=TRUE, selected = "NY" )
+# selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)), multiple=F, selectize=TRUE, selected = "NY" )
+
+#filter_select(id = 'stateFilter',label = 'State',sharedData = shared_df, group=data$State, allLevels = T)
+filter_select("stateFilter", "State", sd, ~State)
+
 ```
 
 *** 
@@ -51,40 +58,53 @@ Output {.tabset}
 ### Map
 
 ```{r}
-renderLeaflet({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% map()
-  })
+if(is.null(sd$Longitude) != 1){
+  sd %>% map()
+}
 ```
 
 ### Scatterplot
 
 ```{r}
-renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatterPlotly()
-})
+p <- ggplot(sd, aes(x=PriceToRentRatio, y=MedianPrice, 
+                          text=paste("Metro:",sd$Metro, "\nCounty:",sd$County, "\nZip:",sd$Zip,
+                                     "\nMedian Price($):",sd$MedianPrice,"\nMedian Price Per Square Feet($):",
+                                     sd$MedianPricePerSqft,"\nZillow Home Value Index(ZHVI):",sd$Zhvi,
+                                     "\nOne Year Forecast(% Change):",sd$ForecastYoYPctChange ), group=1)) +
+             geom_jitter(mapping=aes(color=ForecastYoYPctChange), size=4, alpha=0.7) +
+             #geom_point_interactive(aes(data_id=sd, onclick= sd$onclick)) +
+             ggtitle(paste("Relationship between Median Price(y) and Price to Rent Ratio(x) color coded 
+                           by Zillow Forecast(YoY)")) +
+             scale_color_gradient(low="red", high="green") +
+             #geom_smooth(method = lm) +
+             labs(x="Price to Rent Ratio",y="Median Price($)",color="One Year Forecast(%Change)")
+
+ggplotly(p, tooltip = "Zip") %>%
+  highlight("plotly_selected") 
+  # %>% highlight("plotly_click", color='red',persistent=T)
 ```
 
 ### 3d Chart
 
 ```{r}
-renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plot3d() 
-})
+sd %>% plot_ly(x =~PriceToRentRatio, y =~MarketHealthIndex, z = ~MedianPricePerSqft, color = ~ForecastYoYPctChange,colors=c("red","green")) %>%
+    add_markers(opacity=0.7) %>%
+    layout(title=paste("3d chart colored by Zillow Forecast(YoY)"), scene = list(xaxis = list(title = "Price to Rent Ratio"),
+                                                                     yaxis = list(title = 'Market Health Index'),
+                                                                     zaxis = list(title = 'Median Price Per Sqft($)')))
 ```
 
 
-Row {data-height=130}
+Row {data-height=250}
 -----------------------------------------------------------------------
 
 ```{r}
-renderDT({
-data %>% SymbolSelect(stateFilter= input$stateFilter) %>% datatable(extensions='Buttons',options=list(
+sd %>% datatable(extensions='Buttons',options=list(
   dom = 'Blfrtip',
   buttons = c('colvis','copy','csv','excel','pdf','print'),
   lengthMenu = list(c(10,-1),c(10,'All')))) %>%
 formatStyle("MedianPrice",backgroundColor = styleInterval(percentiles,c("red","yellow","green")),color = styleInterval(percentiles,c("white","blue","white"))) %>%
 formatStyle("ForecastYoYPctChange",backgroundColor = styleInterval(percentiles2,c("red","yellow","green")),color = styleInterval(percentiles2,c("white","blue","white")))
-})
 ```
 
 

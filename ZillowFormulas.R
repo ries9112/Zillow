@@ -15,7 +15,7 @@ library(leaflet)
 #setwd("C:/Users/escla/Desktop/RealEstateExample/Zillow")
 
 
-data <- read.csv('zillow.csv', stringsAsFactors = F)
+data <- read.csv('Files/zillow.csv', stringsAsFactors = F)
 
 data$zip <- as.character(data$Zip) #If I don't want it in the list, put this line after the CharacterFields assignment
 
