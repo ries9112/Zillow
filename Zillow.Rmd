@@ -1,0 +1,91 @@
+---
+title: "Zillow Real Estate Data By Zip Code(USA)" 
+output: 
+  flexdashboard::flex_dashboard:
+    theme: cerulean
+    social: ['facebook', 'linkedin','menu']
+    orientation: rows
+    navbar:
+      - { title: "Predict Crypto Data Dashboard", href: "https://predictcrypto.shinyapps.io/24hData/" }
+    source: embed
+runtime: shiny
+
+#Making this so I can work with easier example calculator
+#TO-DO:
+#Create map that actually shows something (like median prices color gradient. Forecasts might be even better!)
+#Highlight points on the data-table on click
+#For loop that finds biggest opportunities - button that once clicked gives zip codes with the lowest price per sqft (buy or rent) for the current filters
+
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+source("ZillowFormulas.R")
+library(DT)
+library(leaflet)
+options(scipen=999)
+```
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+### [Zillow Research](https://www.zillow.com/research/data/)
+
+```{r}
+selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)), multiple=F, selectize=TRUE, selected = "NY" )
+```
+
+*** 
+**The data is grouped by the Zip code (one point per Zip).** <br/> <br/>
+**This data is published by the Zillow Group and is updated and made publicly available [here](https://www.zillow.com/research/data/), where you can also find definitions for all of the variables. <br/> <br/> [Click here](https://www.zillow.com/research/about-us/) to learn more about Zillow Research** <br/> <br/>
+
+**To remove the filter for State or City, select "NO FILTER" from the list of values (leaving these empty will generate an error)** <br/> <br/>
+
+**Made by [Riccardo Esclapon](https://www.linkedin.com/in/esclaponriccardo/) in R Shiny. ** <br/> <br/>
+
+**Not affilitated with Zillow Group in any way. **
+
+Output {.tabset}
+-----------------------------------------------------------------------
+
+### Map
+
+```{r}
+renderLeaflet({
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% map()
+  })
+```
+
+### Scatterplot
+
+```{r}
+renderPlotly({
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatterPlotly()
+})
+```
+
+### 3d Chart
+
+```{r}
+renderPlotly({
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plot3d() 
+})
+```
+
+
+Row {data-height=130}
+-----------------------------------------------------------------------
+
+```{r}
+renderDT({
+data %>% SymbolSelect(stateFilter= input$stateFilter) %>% datatable(extensions='Buttons',options=list(
+  dom = 'Blfrtip',
+  buttons = c('colvis','copy','csv','excel','pdf','print'),
+  lengthMenu = list(c(10,-1),c(10,'All')))) %>%
+formatStyle("MedianPrice",backgroundColor = styleInterval(percentiles,c("red","yellow","green")),color = styleInterval(percentiles,c("white","blue","white"))) %>%
+formatStyle("ForecastYoYPctChange",backgroundColor = styleInterval(percentiles2,c("red","yellow","green")),color = styleInterval(percentiles2,c("white","blue","white")))
+})
+```
+
+
+

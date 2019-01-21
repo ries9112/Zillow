@@ -1,0 +1,1235 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="11.7">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>geocoded.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Zip" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="CountyName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="Latitude" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+            <Field name="Longitude" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\geocoded.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Forecasts.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field_1" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="Region" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="StateName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="MSAName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="CountyName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="CityName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+            <Field name="ForecastYoYPctChange" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\Forecasts.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="162" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Field_1" selected="False" />
+                <SelectField field="Right_Region" selected="False" />
+                <SelectField field="Right_RegionName" selected="False" />
+                <SelectField field="Right_StateName" selected="False" />
+                <SelectField field="Right_MSAName" selected="False" />
+                <SelectField field="Right_CountyName" selected="False" rename="Right_CountyName" />
+                <SelectField field="Right_CityName" selected="False" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="258" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_88414e4bbc4f4f8eb7bdfe73340e1305_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="258" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_018463bba9c340b996f4667c34239f0d_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="234" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_08f993d9a34c47919ba9c6a2f3c7f315_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MedianListingPrice.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="CountyName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+            <Field name="MedianPrice" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPrice.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="258" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RegionName" selected="False" rename="Right_RegionName" />
+                <SelectField field="Right_City" selected="False" rename="Right_City" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="Right_Metro" selected="False" rename="Right_Metro" />
+                <SelectField field="Right_CountyName" selected="False" rename="Right_CountyName" />
+                <SelectField field="Right_SizeRank" selected="False" rename="Right_SizeRank" />
+                <SelectField field="Left_Right_CountyName" selected="False" rename="Left_Right_CountyName" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="390" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_90147c2d54c34d3ba82fb693fddc9537_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="438" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_1861cf62cb6247e8ac09b0104127b165_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="402" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_dc88d4d32ab44841886323ea873e9662_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ZHVI_Summary.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Date" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="RegionID" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="County" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="Zhvi" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="MoM" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="QoQ" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="YoY" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="5Year" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="10Year" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="PeakMonth" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="PeakQuarter" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="PeakZHVI" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="PctFallFromPeak" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+            <Field name="LastTimeAtCurrZHVI" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\ZHVI_Summary.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="270" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Date" selected="False" />
+                <SelectField field="Right_RegionID" selected="False" />
+                <SelectField field="Right_RegionName" selected="False" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="Right_Metro" selected="False" rename="Right_Metro" />
+                <SelectField field="Right_County" selected="False" />
+                <SelectField field="Right_City" selected="False" rename="Right_City" />
+                <SelectField field="Right_SizeRank" selected="False" rename="Right_SizeRank" />
+                <SelectField field="Right_5Year" selected="False" />
+                <SelectField field="Right_10Year" selected="False" />
+                <SelectField field="Right_PeakMonth" selected="False" />
+                <SelectField field="Right_PeakQuarter" selected="False" />
+                <SelectField field="Right_LastTimeAtCurrZHVI" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="534" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_e44ae1e377a2497dbcb7b90f60f238e8_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="510" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_d22609b4e8f9427caea0bd108a0c12ce_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="558" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_b88ba310f1294e4ab801f7b87fe23646_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>PriceToRentRatio.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RegionID" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="CountyName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+            <Field name="PriceToRentRatio" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\PriceToRentRatio.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="330" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RegionID" selected="False" />
+                <SelectField field="Right_RegionName" selected="False" />
+                <SelectField field="Right_City" selected="False" rename="Right_City" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="Right_Metro" selected="False" rename="Right_Metro" />
+                <SelectField field="Right_CountyName" selected="False" rename="Right_CountyName" />
+                <SelectField field="Right_SizeRank" selected="False" rename="Right_SizeRank" />
+                <SelectField field="Right_RegionType" selected="False" />
+                <SelectField field="Right_StateFullName" selected="False" />
+                <SelectField field="Right_DataTypeDescription" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="654" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_e22b7434382c474ea16d79958fd38c8f_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="678" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_57cee81642254044ba1ac2a03df68660_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="714" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_20815018c5b24797a0d52705fcffb428_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MarketHealthIndex.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RegionType" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="CBSATitle" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="MarketHealthIndex" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="SellForGain" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="PrevForeclosed" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="ForeclosureRatio" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="ZHVI" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="MoM" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="YoY" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="ForecastYoYPctChange" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="StockOfREOs" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="NegativeEquity" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="Delinquency" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+            <Field name="DaysOnMarket" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MarketHealthIndex.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="366" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RegionType" selected="False" />
+                <SelectField field="Right_RegionName" selected="False" />
+                <SelectField field="Right_City" selected="False" rename="Right_City" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="Right_Metro" selected="False" rename="Right_Metro" />
+                <SelectField field="Right_CBSATitle" selected="False" />
+                <SelectField field="Right_SizeRank" selected="False" rename="Right_SizeRank" />
+                <SelectField field="Right_PrevForeclosed" selected="False" />
+                <SelectField field="Right_ForeclosureRatio" selected="False" />
+                <SelectField field="Right_ZHVI" selected="False" rename="Right_ZHVI" />
+                <SelectField field="Right_MoM" selected="False" rename="Right_MoM" />
+                <SelectField field="Right_YoY" selected="False" rename="Right_YoY" />
+                <SelectField field="Right_ForecastYoYPctChange" selected="False" rename="Right_ForecastYoYPctChange" />
+                <SelectField field="Right_StockOfREOs" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="462" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_c43f72e792db4a4996f2658fbce9736f_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="450" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_8df2b5a4bb5c4e8088280b729ca53bc5_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="486" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_0501f1e493e5454c80afbce05fe60966_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="42" y="558" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MedianListingPricePerSqft.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RegionName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="Metro" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="CountyName" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="SizeRank" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+            <Field name="MedianPricePerSqft" size="254" source="File: C:\Users\escla\Desktop\RealEstateExample\Zillow\MedianListingPricePerSqft.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="414" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Zip" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RegionName" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RegionName" selected="False" />
+                <SelectField field="Right_City" selected="False" rename="Right_City" />
+                <SelectField field="Right_State" selected="False" rename="Right_State" />
+                <SelectField field="Right_Metro" selected="False" rename="Right_Metro" />
+                <SelectField field="Right_CountyName" selected="False" rename="Right_CountyName" />
+                <SelectField field="Right_SizeRank" selected="False" rename="Right_SizeRank" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="510" y="558" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_fe6880929f84434eaab03d3f1aeac862_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="498" y="606" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\escla\AppData\Local\Temp\Engine_3476_70a3f83be3c04406b38f64cfc010a865_\Engine_21368_e67f2051b3214066aadaf242963fc07d_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="486" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="642" y="630" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">C:\Users\escla\Desktop\RealEstateExample\Zillow\Zillow.csv</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+            <WriteBOM>True</WriteBOM>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Zillow.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Join" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Left" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Right" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Join" />
+      <Destination ToolID="8" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Left" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Join" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Right" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Join" />
+      <Destination ToolID="13" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Left" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Right" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Join" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Join" />
+      <Destination ToolID="18" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="18" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Left" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Right" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Join" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Join" />
+      <Destination ToolID="23" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="23" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Left" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Right" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Join" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Join" />
+      <Destination ToolID="28" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Left" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Join" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Right" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Join" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Zillow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,113 @@
+---
+title: "Zillow Real Estate Data By Zip Code(USA)" 
+output: ioslides_presentation 
+outertheme: sidebar
+runtime: shiny
+
+#Making this so I can work with easier example calculator
+#TO-DO:
+#Create map that actually shows something (like median prices color gradient. Forecasts might be even better!)
+#Highlight points on the data-table on click
+#Select what columns to view(for table legibility)
+#For loop that finds biggest opportunities
+#Button that once clicked gives zip codes with the lowest price per sqft (buy or rent) for the current filters
+
+#Create a new user input where the user picks the type of map for the colored map!
+
+#Make a slider for sizerank
+---
+
+```{r setup, include=FALSE ,echo=FALSE}
+library(flexdashboard)
+source("ZillowFormulas.R")
+library(DT)
+library(leaflet)
+options(scipen=999)
+```
+
+
+*** 
+**The data is grouped by the Zip code (one point per Zip).** <br/> <br/>
+**This data is published by the Zillow Group and is updated and made publicly available [here](https://www.zillow.com/research/data/), where you can also find definitions for all of the variables. <br/> <br/> [Click here](https://www.zillow.com/research/about-us/) to learn more about Zillow Research** <br/> <br/>
+
+**To remove the filter for State or City, select "NO FILTER" from the list of values (leaving these empty will generate an error)** <br/> <br/>
+
+**Made by [Riccardo Esclapon](https://www.linkedin.com/in/esclaponriccardo/) in R Shiny. ** <br/> <br/>
+
+**Not affilitated with Zillow Group in any way. **
+
+
+[Zillow Research](https://www.zillow.com/research/data/)
+-----------------------------------------------------------------------
+
+```{r,echo=FALSE, warning=F}
+selectInput("FilterBy2", "State", choices = c("NO FILTER",unique(data$State)), multiple=T, selectize=TRUE, selected = "NY" )
+selectInput("FilterBy", "City", choices = c("NO FILTER",unique(data$City)), multiple=T, selectize=TRUE, selected = "New York")
+textInput("FilterBy3", "County", value =  "")
+sliderInput(inputId= "Slider", "Median Price Per Sqft($) Range:", min=min(data$MedianPricePerSqft), max=(data$MedianPricePerSqft), value=c(50,1200),step=1)
+#selectInput("FilterBy3", "Zip", choices = unique(data$zip), multiple=T, selectize=TRUE, selected = "80303")
+```
+
+Map
+-----------------------------------------------------------------------
+
+```{r,echo=FALSE}
+renderLeaflet({
+  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% mapPres()
+  })
+```
+
+Scatterplot 
+-----------------------------------------------------------------------
+
+```{r,echo=FALSE}
+renderPlotly({
+  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% plotScatter()
+})
+#Another chart I created uses a function called plotMiningView1
+```
+
+
+3d Chart
+-----------------------------------------------------------------------
+
+```{r,echo=FALSE}
+renderPlotly({
+  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% plot3d() 
+})
+```
+
+
+Satellite Map
+-----------------------------------------------------------------------
+
+
+```{r,echo=FALSE}
+renderLeaflet({
+  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% mapSat()
+  })
+```
+
+
+<!-- # DataTable doesn't fit: -->
+<!-- # ```{r,echo=FALSE} -->
+<!-- # renderDataTable({ -->
+<!-- # data %>% SymbolSelect(FilterBy= input$FilterBy,FilterBy2= input$FilterBy2, FilterBy3= input$FilterBy3, Slider=input$Slider) %>% datatable() %>% -->
+<!-- # formatStyle("MedianPrice",backgroundColor = styleInterval(percentiles,c("red","yellow","green")),color = styleInterval(percentiles,c("white","blue","white"))) %>% -->
+<!-- # formatStyle("ForecastYoYPctChange",backgroundColor = styleInterval(percentiles2,c("red","yellow","green")),color = styleInterval(percentiles2,c("white","blue","white"))) -->
+<!-- # }) -->
+<!-- # ``` -->
+
+
+Compatible with Python
+-----------------------------------------------------------------------
+
+```{r}
+print('This code is written in R')
+```
+
+```{python, echo=T}
+print('this code is written in Python!')
+```
+
+
