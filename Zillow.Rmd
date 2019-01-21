@@ -58,9 +58,7 @@ Output {.tabset}
 ### Map
 
 ```{r}
-if(is.null(sd$Longitude) != 1){
-  sd %>% map()
-}
+leaflet(sd) %>% addTiles() %>% addMarkers()
 ```
 
 ### Scatterplot
@@ -79,9 +77,9 @@ p <- ggplot(sd, aes(x=PriceToRentRatio, y=MedianPrice,
              #geom_smooth(method = lm) +
              labs(x="Price to Rent Ratio",y="Median Price($)",color="One Year Forecast(%Change)")
 
-ggplotly(p, tooltip = "Zip") %>%
-  highlight("plotly_selected") 
-  # %>% highlight("plotly_click", color='red',persistent=T)
+ggplotly(p, tooltip = "Zip") %>% 
+  highlight("plotly_click", color='red')
+  # %>% highlight("plotly_selected") 
 ```
 
 ### 3d Chart
@@ -91,21 +89,17 @@ sd %>% plot_ly(x =~PriceToRentRatio, y =~MarketHealthIndex, z = ~MedianPricePerS
     add_markers(opacity=0.7) %>%
     layout(title=paste("3d chart colored by Zillow Forecast(YoY)"), scene = list(xaxis = list(title = "Price to Rent Ratio"),
                                                                      yaxis = list(title = 'Market Health Index'),
-                                                                     zaxis = list(title = 'Median Price Per Sqft($)')))
+                                                                     zaxis = list(title = 'Median Price Per Sqft($)'))) %>% 
+  highlight("plotly_click", color='red')
 ```
 
 
 Row {data-height=250}
 -----------------------------------------------------------------------
 
-```{r}
-sd %>% datatable(extensions='Buttons',options=list(
-  dom = 'Blfrtip',
-  buttons = c('colvis','copy','csv','excel','pdf','print'),
-  lengthMenu = list(c(10,-1),c(10,'All')))) %>%
-formatStyle("MedianPrice",backgroundColor = styleInterval(percentiles,c("red","yellow","green")),color = styleInterval(percentiles,c("white","blue","white"))) %>%
-formatStyle("ForecastYoYPctChange",backgroundColor = styleInterval(percentiles2,c("red","yellow","green")),color = styleInterval(percentiles2,c("white","blue","white")))
-```
 
+```{r}
+DT::datatable(sd)
+```
 
 
