@@ -3,11 +3,9 @@ title: "Zillow Real Estate Data By Zip Code(USA)"
 output: 
   flexdashboard::flex_dashboard:
     theme: cerulean
-    social: ['facebook', 'linkedin','menu']
-    orientation: rows
-    navbar:
-      - { title: "Predict Crypto Data Dashboard", href: "https://predictcrypto.shinyapps.io/24hData/" }
     source: embed
+    social: ['menu']
+    orientation: rows
 runtime: shiny
 
 #Making this so I can work with easier example calculator
@@ -61,6 +59,7 @@ renderLeaflet({
 ```{r}
 renderPlotly({
   data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatterPlotly()
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatter()
 })
 ```
 

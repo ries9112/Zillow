@@ -15,7 +15,7 @@ library(leaflet)
 #setwd("C:/Users/escla/Desktop/RealEstateExample/Zillow")
 
 
-data <- read.csv('zillow.csv', stringsAsFactors = F)
+data <- read.csv('Files/zillow.csv', stringsAsFactors = F)
 
 data$zip <- as.character(data$Zip) #If I don't want it in the list, put this line after the CharacterFields assignment
 
@@ -84,8 +84,8 @@ map <- function(dt) {
     addProviderTiles(providers$NASAGIBS.ModisTerraLSTDay, group='land surface temp') %>%
     addProviderTiles(providers$JusticeMap.income, group='income(zoom out)') %>%
     addTiles( group='normal') %>%
-    addProviderTiles(providers$OpenInfraMap.Power, group='power grid') %>%
-    addProviderTiles(providers$OpenInfraMap.Telecom, group='telecom') %>%
+    #addProviderTiles(providers$OpenInfraMap.Power, group='power grid') %>%
+    #addProviderTiles(providers$OpenInfraMap.Telecom, group='telecom') %>%
     addProviderTiles(providers$OpenRailwayMap, group='railway') %>%
     addProviderTiles(providers$JusticeMap.asian, group='asian population') %>%
     addProviderTiles(providers$JusticeMap.black, group='african american population') %>%
@@ -95,8 +95,8 @@ map <- function(dt) {
     addLayersControl(
       baseGroups = c('normal','satellite','terrain','watercolor'),
       overlay = c('power grid','telecom','railway','income(zoom out)','asian population','african american population','hispanic population',
-                  'white population','non-white population', 'land surface temp','markers'),
-      options = layersControlOptions(collapsed = TRUE)
+                  'white population','non-white population', 'land surface temp'),
+      options = layersControlOptions(collapsed = FALSE)
     ) %>% hideGroup(c('power grid','land surface temp','telecom',"income(zoom out)",'asian population','african american population','hispanic population',
                       'white population','non-white population','railway'))
     
