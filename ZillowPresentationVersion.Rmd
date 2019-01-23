@@ -3,6 +3,7 @@ title: "Zillow Real Estate Data By Zip Code (USA)"
 output:
   ioslides_presentation:
     widescreen: true
+date: Use the arrows on your keyboard to change slides 
 outertheme: sidebar
 runtime: shiny
 ---
