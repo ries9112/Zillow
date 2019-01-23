@@ -12,7 +12,7 @@ library(ggmap)
 library(leaflet)
 
 #import data
-data <- read.csv('Files/zillow.csv', stringsAsFactors = F)
+data <- read.csv('Files/Zillow.csv', stringsAsFactors = F)
 
 data$zip <- as.character(data$Zip) #If I don't want it in the list, put this line after the CharacterFields assignment
 
