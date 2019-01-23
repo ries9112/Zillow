@@ -11,10 +11,7 @@ library(DBI)
 library(ggmap)
 library(leaflet)
 
-
-#setwd("C:/Users/escla/Desktop/RealEstateExample/Zillow")
-
-
+#import data
 data <- read.csv('Files/zillow.csv', stringsAsFactors = F)
 
 data$zip <- as.character(data$Zip) #If I don't want it in the list, put this line after the CharacterFields assignment
@@ -22,12 +19,12 @@ data$zip <- as.character(data$Zip) #If I don't want it in the list, put this lin
 CharacterFields <- data %>% select_if(is.character) %>%
   names()
 
-percentiles <- data$MedianPrice %>% quantile(c(.25,.75),na.rm=T) #For color coding. Can I make this dynamic by creating this selection from dt within SymbolSelect function? Do this after getting the basic to run
+#For color coding. Can I make this dynamic by creating this selection from dt within Select function? 
 percentiles2 <- data$ForecastYoYPctChange %>% quantile(c(.25,.75),na.rm=T) 
 
 
 
-SymbolSelect <- function(dt,stateFilter){
+stateSelect <- function(dt,stateFilter){
   dt <- if(stateFilter == "NO FILTER"){
     dt <- dt
   } else {
@@ -66,18 +63,28 @@ plotScatterPlotly <- function(dt){
 
 
 plot3d <- function(dt) {
-  plot_ly(dt, x =~PriceToRentRatio, y =~MarketHealthIndex, z = ~MedianPricePerSqft, color = ~ForecastYoYPctChange,colors=c("red","green"),text = paste("Metro:",dt$Metro, "\nCounty:",dt$County, "\nZip:",dt$Zip,"\nMedian Price($):",dt$MedianPrice,"\nMedian Price Per Square Feet:",dt$MedianPricePerSqft,"\nZillow Home Value Index(ZHVI):",dt$Zhvi,"\nOne Year Forecast(% Change):",dt$ForecastYOYPctChange )) %>%
+  plot_ly(dt, x =~PriceToRentRatio, y =~MarketHealthIndex, z = ~MedianPricePerSqft, 
+          color = ~ForecastYoYPctChange,colors=c("red","green"),
+          text = paste("Metro:",dt$Metro, "\nCounty:",dt$County, "\nZip:",dt$Zip,"\nMedian Price($):",
+                       dt$MedianPrice,"\nMedian Price Per Square Feet:",dt$MedianPricePerSqft,
+                       "\nZillow Home Value Index(ZHVI):",dt$Zhvi,"\nOne Year Forecast(% Change):",
+                       dt$ForecastYOYPctChange )) %>%
     add_markers(opacity=0.7) %>%
-    layout(title=paste(dt$State,"3d chart colored by Zillow Forecast(YoY)"), scene = list(xaxis = list(title = "Price to Rent Ratio"),
-                                                                     yaxis = list(title = 'Market Health Index'),
-                                                                     zaxis = list(title = 'Median Price Per Sqft($)')))
+    layout(title=paste(dt$State,"3d chart colored by Zillow Forecast(YoY)"), 
+           scene = list(xaxis = list(title = "Price to Rent Ratio"),
+                        yaxis = list(title = 'Market Health Index'),
+                        zaxis = list(title = 'Median Price Per Sqft($)')))
 }
 
 
 map <- function(dt) {
   leaflet() %>%
     addTiles() %>%
-    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),group='markers') %>%
+    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), 
+               popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, 
+                             "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",
+                             dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),
+               group='markers') %>%
     addProviderTiles(providers$Stamen.Terrain, group='terrain') %>%
     addProviderTiles(providers$Stamen.Watercolor, group='watercolor') %>%
     addProviderTiles(providers$Esri.WorldImagery, group='satellite') %>%
@@ -94,7 +101,8 @@ map <- function(dt) {
     addProviderTiles(providers$JusticeMap.nonWhite, group='non-white population') %>%
     addLayersControl(
       baseGroups = c('normal','satellite','terrain','watercolor'),
-      overlay = c('railway','income(zoom out)','asian population','african american population','hispanic population',
+      overlay = c('railway','income(zoom out)','asian population','african american population',
+                  'hispanic population',
                   'white population','non-white population', 'land surface temp','markers'),
       options = layersControlOptions(collapsed = FALSE)
     ) %>% hideGroup(c('land surface temp',"income(zoom out)",'asian population','african american population','hispanic population',
@@ -105,38 +113,23 @@ map <- function(dt) {
 mapPres <- function(dt) {
   leaflet() %>%
     addTiles() %>%
-    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),group='markers')
-    # addProviderTiles(providers$Stamen.Terrain, group='terrain') %>%
-    # addProviderTiles(providers$Stamen.Watercolor, group='watercolor') %>%
-    # addProviderTiles(providers$Esri.WorldImagery, group='satellite') %>%
-    # addProviderTiles(providers$NASAGIBS.ModisTerraLSTDay, group='land surface temp') %>%
-    # addProviderTiles(providers$JusticeMap.income, group='income(zoom out)') %>%
-    # addTiles( group='normal') %>%
-    # addProviderTiles(providers$OpenInfraMap.Power, group='power grid') %>%
-    # addProviderTiles(providers$OpenInfraMap.Telecom, group='telecom') %>%
-    # addProviderTiles(providers$OpenRailwayMap, group='railway') %>%
-    # addProviderTiles(providers$JusticeMap.asian, group='asian population') %>%
-    # addProviderTiles(providers$JusticeMap.black, group='african american population') %>%
-    # addProviderTiles(providers$JusticeMap.hispanic, group='hispanic population') %>%
-    # addProviderTiles(providers$JusticeMap.white, group='white population') %>%
-    # addProviderTiles(providers$JusticeMap.nonWhite, group='non-white population')
-    #%>%
-    # addLayersControl(
-    #   baseGroups = c('normal','satellite','terrain','watercolor'),
-    #   overlay = c('power grid','telecom','railway','income(zoom out)','asian population','african american population','hispanic population',
-    #               'white population','non-white population', 'land surface temp','markers'),
-    #   options = layersControlOptions(collapsed = FALSE)
-    # ) %>% hideGroup(c('power grid','land surface temp','telecom',"income(zoom out)",'asian population','african american population','hispanic population',
-    #                   'white population','non-white population','railway'))
+    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), 
+               popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, 
+                             "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",
+                             dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),
+               group='markers')
+
 }
 
 #Can I make a button that shows the different type of map?
 mapSat <- function(dt) {
   leaflet() %>%
     addProviderTiles("Esri.WorldImagery") %>%
-    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro,  "<br/>County:",dt$County, "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange))
+    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), 
+               popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro,  "<br/>County:",dt$County, 
+                             "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",
+                             dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange))
 }
-
 
 
 NewMap <- function(dt) {
@@ -152,31 +145,4 @@ NewMap <- function(dt) {
 #ggplot map. This is a good link: http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html
 ggplot(data = data, mapping = aes(x = Longitude, y = Latitude, group=SizeRank)) + 
   geom_polygon(color = "black", fill = "gray")
-
-
-
-
-#NEURAL NET:
-#https://www.analyticsvidhya.com/blog/2017/09/creating-visualizing-neural-network-in-r/
-
-# max = apply(data , 2 , max)
-# min = apply(data, 2 , min)
-# scaled = as.data.frame(scale(data, center = min, scale = max - min))
-# 
-# set.seed(2)
-# NN = neuralnet(MedianPrice ~ PeakZHVI, data, hidden = 3 , linear.output = T )
-# 
-# plot(NN)
-
-
-#NOT WORKING. DEEP LEARNING A-Z COURSE IS GREAT BUT USES PYTHON. 
-#THEREFORE: https://blog.rstudio.com/2018/03/26/reticulate-r-interface-to-python/
-#Use this to run python code chunks in a Markdown document!
-#Is installation of Theano, Tensorflow, Keras going to be an issue?
-
-
-
-
-
-
 

@@ -5,18 +5,6 @@ output:
     widescreen: true
 outertheme: sidebar
 runtime: shiny
-
-#Making this so I can work with easier example calculator
-#TO-DO:
-#Create map that actually shows something (like median prices color gradient. Forecasts might be even better!)
-#Highlight points on the data-table on click
-#Select what columns to view(for table legibility)
-#For loop that finds biggest opportunities
-#Button that once clicked gives zip codes with the lowest price per sqft (buy or rent) for the current filters
-
-#Create a new user input where the user picks the type of map for the colored map!
-
-#Make a slider for sizerank
 ---
 
 ```{r setup, include=FALSE ,echo=FALSE}
@@ -33,7 +21,7 @@ options(scipen=999)
 **The data is grouped by the Zip code (one point per Zip).** <br/> <br/>
 **This data is published by the Zillow Group and is updated and made publicly available [here](https://www.zillow.com/research/data/), where you can also find definitions for all of the variables. <br/> <br/> [Click here](https://www.zillow.com/research/about-us/) to learn more about Zillow Research** <br/> <br/>
 
-**Select a state at the beginning and set it as the desired value for the rest of the presentation. You can fullscreen the presentation by pressing the 'f' key on your keyboard.** <br/> <br/>
+**Select a state at the beginning and set it as the desired value for the rest of the presentation.** <br/> <br/>
 
 **Made by [Riccardo Esclapon](https://www.linkedin.com/in/esclaponriccardo/) in R Shiny. ** <br/> <br/>
 
@@ -50,7 +38,7 @@ selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)),
 
 ```{r,echo=FALSE}
 renderLeaflet({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% mapPres()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% mapPres()
   })
 ```
 
@@ -59,7 +47,7 @@ Scatterplot
 
 ```{r,echo=FALSE}
 renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatter()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% plotScatter()
 })
 ```
 
@@ -75,7 +63,7 @@ renderText({
 
 ```{r,echo=FALSE}
 renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plot3d() 
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% plot3d() 
 })
 ```
 
@@ -91,7 +79,7 @@ Satellite Map
 
 ```{r,echo=FALSE}
 renderLeaflet({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% mapSat()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% mapSat()
   })
 ```
 
@@ -101,16 +89,6 @@ renderText({
   input$stateFilter
 })
 ```
-
-<!-- # DataTable doesn't fit: -->
-<!-- # ```{r,echo=FALSE} -->
-<!-- # renderDataTable({ -->
-<!-- # data %>% SymbolSelect(FilterBy= input$FilterBy,FilterBy2= input$FilterBy2, FilterBy3= input$FilterBy3, Slider=input$Slider) %>% datatable() %>% -->
-<!-- # formatStyle("MedianPrice",backgroundColor = styleInterval(percentiles,c("red","yellow","green")),color = styleInterval(percentiles,c("white","blue","white"))) %>% -->
-<!-- # formatStyle("ForecastYoYPctChange",backgroundColor = styleInterval(percentiles2,c("red","yellow","green")),color = styleInterval(percentiles2,c("white","blue","white"))) -->
-<!-- # }) -->
-<!-- # ``` -->
-
 
 R Markdown Document
 -----------------------------------------------------------------------

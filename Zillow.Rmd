@@ -7,13 +7,6 @@ output:
     social: ['menu']
     orientation: rows
 runtime: shiny
-
-#Making this so I can work with easier example calculator
-#TO-DO:
-#Create map that actually shows something (like median prices color gradient. Forecasts might be even better!)
-#Highlight points on the data-table on click
-#For loop that finds biggest opportunities - button that once clicked gives zip codes with the lowest price per sqft (buy or rent) for the current filters
-
 ---
 
 ```{r setup, include=FALSE}
@@ -50,7 +43,7 @@ Output {.tabset}
 
 ```{r}
 renderLeaflet({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% map()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% map()
   })
 ```
 
@@ -58,8 +51,8 @@ renderLeaflet({
 
 ```{r}
 renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatterPlotly()
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatter()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% plotScatterPlotly()
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% plotScatter()
 })
 ```
 
@@ -67,7 +60,7 @@ renderPlotly({
 
 ```{r}
 renderPlotly({
-  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plot3d() 
+  data %>% stateSelect(stateFilter= input$stateFilter) %>% plot3d() 
 })
 ```
 
@@ -77,7 +70,7 @@ Row {data-height=130}
 
 ```{r}
 renderDT({
-data %>% SymbolSelect(stateFilter= input$stateFilter) %>% datatable(extensions='Buttons',options=list(
+data %>% stateSelect(stateFilter= input$stateFilter) %>% datatable(extensions='Buttons',options=list(
   dom = 'Blfrtip',
   buttons = c('colvis','copy','csv','excel','pdf','print'),
   lengthMenu = list(c(10,-1),c(10,'All')))) %>%
