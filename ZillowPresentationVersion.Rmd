@@ -100,7 +100,7 @@ print('This code is written in R')
 <br/> <br/>
 
 ```{python, echo=T}
-print('this code is written in Python!')
+print('This code is written in Python!')
 ```
 
 <br/>
