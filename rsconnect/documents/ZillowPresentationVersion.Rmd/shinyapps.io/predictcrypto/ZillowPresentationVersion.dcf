@@ -1,0 +1,12 @@
+name: ZillowPresentationVersion
+title: ZillowPresentationVersion
+username:
+account: predictcrypto
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 658501
+bundleId: 1828968
+url: https://predictcrypto.shinyapps.io/ZillowPresentationVersion/
+when: 1548162634.99064
+asMultiple: FALSE
+asStatic: FALSE

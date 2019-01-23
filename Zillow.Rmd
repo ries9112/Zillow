@@ -39,7 +39,7 @@ selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)),
 
 **To remove the filter for State or City, select "NO FILTER" from the list of values (leaving these empty will generate an error)** <br/> <br/>
 
-**Made by [Riccardo Esclapon](https://www.linkedin.com/in/esclaponriccardo/) in R Shiny. ** <br/> <br/>
+**Made by [Riccardo Esclapon](https://www.resclapon.com) in R Shiny. ** <br/> <br/>
 
 **Not affilitated with Zillow Group in any way. **
 

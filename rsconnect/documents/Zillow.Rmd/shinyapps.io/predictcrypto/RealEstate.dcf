@@ -5,8 +5,8 @@ account: predictcrypto
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 422120
-bundleId: 1827985
+bundleId: 1828006
 url: https://predictcrypto.shinyapps.io/RealEstate/
-when: 1548116550.15367
+when: 1548117349.48284
 asMultiple: FALSE
 asStatic: FALSE

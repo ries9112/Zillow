@@ -46,7 +46,7 @@ plotScatter <- function(dt) {
                                      "\nOne Year Forecast(% Change):",dt$ForecastYoYPctChange ), group=1)) +
              geom_jitter(mapping=aes(color=ForecastYoYPctChange), size=4, alpha=0.7) +
              #geom_point_interactive(aes(data_id=dt, onclick= dt$onclick)) +
-             ggtitle(paste("Relationship between Median Price(y) and Price to Rent Ratio(x) color coded by Zillow Forecast(YoY)")) +
+             ggtitle(paste(dt$State,"relationship between Median Price(y) and Price to Rent Ratio(x) color coded by Zillow Forecast(YoY)")) +
              scale_color_gradient(low="red", high="green") +
              #geom_smooth(method = lm) +
              labs(x="Price to Rent Ratio",y="Median Price($)",color="One Year Forecast(%Change)"))
@@ -68,7 +68,7 @@ plotScatterPlotly <- function(dt){
 plot3d <- function(dt) {
   plot_ly(dt, x =~PriceToRentRatio, y =~MarketHealthIndex, z = ~MedianPricePerSqft, color = ~ForecastYoYPctChange,colors=c("red","green"),text = paste("Metro:",dt$Metro, "\nCounty:",dt$County, "\nZip:",dt$Zip,"\nMedian Price($):",dt$MedianPrice,"\nMedian Price Per Square Feet:",dt$MedianPricePerSqft,"\nZillow Home Value Index(ZHVI):",dt$Zhvi,"\nOne Year Forecast(% Change):",dt$ForecastYOYPctChange )) %>%
     add_markers(opacity=0.7) %>%
-    layout(title=paste("3d chart colored by Zillow Forecast(YoY)"), scene = list(xaxis = list(title = "Price to Rent Ratio"),
+    layout(title=paste(dt$State,"3d chart colored by Zillow Forecast(YoY)"), scene = list(xaxis = list(title = "Price to Rent Ratio"),
                                                                      yaxis = list(title = 'Market Health Index'),
                                                                      zaxis = list(title = 'Median Price Per Sqft($)')))
 }
@@ -94,10 +94,10 @@ map <- function(dt) {
     addProviderTiles(providers$JusticeMap.nonWhite, group='non-white population') %>%
     addLayersControl(
       baseGroups = c('normal','satellite','terrain','watercolor'),
-      overlay = c('power grid','telecom','railway','income(zoom out)','asian population','african american population','hispanic population',
-                  'white population','non-white population', 'land surface temp'),
+      overlay = c('railway','income(zoom out)','asian population','african american population','hispanic population',
+                  'white population','non-white population', 'land surface temp','markers'),
       options = layersControlOptions(collapsed = FALSE)
-    ) %>% hideGroup(c('power grid','land surface temp','telecom',"income(zoom out)",'asian population','african american population','hispanic population',
+    ) %>% hideGroup(c('land surface temp',"income(zoom out)",'asian population','african american population','hispanic population',
                       'white population','non-white population','railway'))
     
 }
@@ -105,21 +105,21 @@ map <- function(dt) {
 mapPres <- function(dt) {
   leaflet() %>%
     addTiles() %>%
-    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),group='markers') %>%
-    addProviderTiles(providers$Stamen.Terrain, group='terrain') %>%
-    addProviderTiles(providers$Stamen.Watercolor, group='watercolor') %>%
-    addProviderTiles(providers$Esri.WorldImagery, group='satellite') %>%
-    addProviderTiles(providers$NASAGIBS.ModisTerraLSTDay, group='land surface temp') %>%
-    addProviderTiles(providers$JusticeMap.income, group='income(zoom out)') %>%
-    addTiles( group='normal') %>%
-    addProviderTiles(providers$OpenInfraMap.Power, group='power grid') %>%
-    addProviderTiles(providers$OpenInfraMap.Telecom, group='telecom') %>%
-    addProviderTiles(providers$OpenRailwayMap, group='railway') %>%
-    addProviderTiles(providers$JusticeMap.asian, group='asian population') %>%
-    addProviderTiles(providers$JusticeMap.black, group='african american population') %>%
-    addProviderTiles(providers$JusticeMap.hispanic, group='hispanic population') %>%
-    addProviderTiles(providers$JusticeMap.white, group='white population') %>%
-    addProviderTiles(providers$JusticeMap.nonWhite, group='non-white population')
+    addMarkers(lng = dt$Longitude, lat = dt$Latitude, clusterOptions = markerClusterOptions(), popup = paste("Zip:",dt$Zip, "<br/>Metro:",dt$Metro, "<br/>County:",dt$County, "<br/>Median Price($):",dt$MedianPrice,"<br/>Zillow Home Value Index(ZHVI):",dt$Zhvi,"<br/>One Year Forecast(% Change):",dt$ForecastYoYPctChange),group='markers')
+    # addProviderTiles(providers$Stamen.Terrain, group='terrain') %>%
+    # addProviderTiles(providers$Stamen.Watercolor, group='watercolor') %>%
+    # addProviderTiles(providers$Esri.WorldImagery, group='satellite') %>%
+    # addProviderTiles(providers$NASAGIBS.ModisTerraLSTDay, group='land surface temp') %>%
+    # addProviderTiles(providers$JusticeMap.income, group='income(zoom out)') %>%
+    # addTiles( group='normal') %>%
+    # addProviderTiles(providers$OpenInfraMap.Power, group='power grid') %>%
+    # addProviderTiles(providers$OpenInfraMap.Telecom, group='telecom') %>%
+    # addProviderTiles(providers$OpenRailwayMap, group='railway') %>%
+    # addProviderTiles(providers$JusticeMap.asian, group='asian population') %>%
+    # addProviderTiles(providers$JusticeMap.black, group='african american population') %>%
+    # addProviderTiles(providers$JusticeMap.hispanic, group='hispanic population') %>%
+    # addProviderTiles(providers$JusticeMap.white, group='white population') %>%
+    # addProviderTiles(providers$JusticeMap.nonWhite, group='non-white population')
     #%>%
     # addLayersControl(
     #   baseGroups = c('normal','satellite','terrain','watercolor'),

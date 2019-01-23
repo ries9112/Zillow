@@ -1,6 +1,8 @@
 ---
-title: "Zillow Real Estate Data By Zip Code(USA)" 
-output: ioslides_presentation 
+title: "Zillow Real Estate Data By Zip Code (USA)" 
+output:
+  ioslides_presentation:
+    widescreen: true
 outertheme: sidebar
 runtime: shiny
 
@@ -22,6 +24,7 @@ library(flexdashboard)
 source("ZillowFormulas.R")
 library(DT)
 library(leaflet)
+library(reticulate)
 options(scipen=999)
 ```
 
@@ -30,7 +33,7 @@ options(scipen=999)
 **The data is grouped by the Zip code (one point per Zip).** <br/> <br/>
 **This data is published by the Zillow Group and is updated and made publicly available [here](https://www.zillow.com/research/data/), where you can also find definitions for all of the variables. <br/> <br/> [Click here](https://www.zillow.com/research/about-us/) to learn more about Zillow Research** <br/> <br/>
 
-**To remove the filter for State or City, select "NO FILTER" from the list of values (leaving these empty will generate an error)** <br/> <br/>
+**Select a state at the beginning and set it as the desired value for the rest of the presentation. You can fullscreen the presentation by pressing the 'f' key on your keyboard.** <br/> <br/>
 
 **Made by [Riccardo Esclapon](https://www.linkedin.com/in/esclaponriccardo/) in R Shiny. ** <br/> <br/>
 
@@ -41,19 +44,13 @@ options(scipen=999)
 -----------------------------------------------------------------------
 
 ```{r,echo=FALSE, warning=F}
-selectInput("FilterBy2", "State", choices = c("NO FILTER",unique(data$State)), multiple=T, selectize=TRUE, selected = "NY" )
-selectInput("FilterBy", "City", choices = c("NO FILTER",unique(data$City)), multiple=T, selectize=TRUE, selected = "New York")
-textInput("FilterBy3", "County", value =  "")
-sliderInput(inputId= "Slider", "Median Price Per Sqft($) Range:", min=min(data$MedianPricePerSqft), max=(data$MedianPricePerSqft), value=c(50,1200),step=1)
-#selectInput("FilterBy3", "Zip", choices = unique(data$zip), multiple=T, selectize=TRUE, selected = "80303")
+selectInput("stateFilter", "State", choices = c("NO FILTER",unique(data$State)), multiple=F, selectize=TRUE, selected = "NY" )
 ```
 
-Map
------------------------------------------------------------------------
 
 ```{r,echo=FALSE}
 renderLeaflet({
-  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% mapPres()
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% mapPres()
   })
 ```
 
@@ -62,32 +59,48 @@ Scatterplot
 
 ```{r,echo=FALSE}
 renderPlotly({
-  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% plotScatter()
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plotScatter()
 })
-#Another chart I created uses a function called plotMiningView1
 ```
 
+Current state selection:
+```{r, echo=F}
+renderText({
+  input$stateFilter
+})
+```
 
 3d Chart
 -----------------------------------------------------------------------
 
 ```{r,echo=FALSE}
 renderPlotly({
-  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% plot3d() 
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% plot3d() 
 })
 ```
 
+Current state selection:
+```{r, echo=F}
+renderText({
+  input$stateFilter
+})
+```
 
 Satellite Map
 -----------------------------------------------------------------------
 
-
 ```{r,echo=FALSE}
 renderLeaflet({
-  data %>% SymbolSelect(FilterBy= input$FilterBy, FilterBy2= input$FilterBy2,FilterBy3= input$FilterBy3, Slider=input$Slider) %>% mapSat()
+  data %>% SymbolSelect(stateFilter= input$stateFilter) %>% mapSat()
   })
 ```
 
+Current state selection:
+```{r, echo=F}
+renderText({
+  input$stateFilter
+})
+```
 
 <!-- # DataTable doesn't fit: -->
 <!-- # ```{r,echo=FALSE} -->
@@ -99,15 +112,24 @@ renderLeaflet({
 <!-- # ``` -->
 
 
-Compatible with Python
+R Markdown Document
 -----------------------------------------------------------------------
 
-```{r}
+```{r,echo=T}
 print('This code is written in R')
 ```
+
+<br/> <br/>
 
 ```{python, echo=T}
 print('this code is written in Python!')
 ```
 
+<br/>
 
+Current state selection:
+```{r, echo=F}
+renderText({
+  input$stateFilter
+})
+```
