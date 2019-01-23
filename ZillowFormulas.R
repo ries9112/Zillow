@@ -20,6 +20,7 @@ CharacterFields <- data %>% select_if(is.character) %>%
   names()
 
 #For color coding. Can I make this dynamic by creating this selection from dt within Select function? 
+percentiles <- data$MedianPrice %>% quantile(c(.25,.75),na.rm=T) 
 percentiles2 <- data$ForecastYoYPctChange %>% quantile(c(.25,.75),na.rm=T) 
 
 
